@@ -157,3 +157,28 @@ def total(products):
     total = products.quantity * products.charge
 
     return total
+
+
+
+
+
+
+
+
+
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomerSerializer
+
+# List at the end of the views.py
+# Lists all customers
+class CustomerList(APIView):
+
+    def get(self,request):
+        customers_json = Customer.objects.all()
+        serializer = CustomerSerializer(customers_json, many=True)
+        return Response(serializer.data)
